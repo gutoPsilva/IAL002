@@ -1,0 +1,10 @@
+soma = 0
+qntd = 0
+x = 1
+while x != 0:
+    x = int(input("Digite o X: "))
+    if x != 0:
+        soma += x
+        qntd += 1
+print('Total dos valores digitados = %d' %soma)
+print('Quantidade de valores = %d' %qntd)
