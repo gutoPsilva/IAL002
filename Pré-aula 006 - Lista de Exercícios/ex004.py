@@ -1,15 +1,18 @@
-n = int(input('Quantas vezes queres comparar 2 números: '))
-while n > 0:
-    f1 = float(input('Digite o primeiro número: '))
-    f2 = float(input('Digite o segundo número:  '))
-    if f1 <= 0 or f2 <=0:
-        print('Número(s) inválido(s). Digite valores positivos!')
+N = int(input('Digite N: '))
+i = 0
+while i < N:
+    X = float(input('Digite o elemento {}: '.format(i+1)))
+    if X > 0:
+        if i == 0 or X < menor:
+            menor = X
+        if i == 0 or X > maior:
+            maior = X
+        i+=1
     else:
-        if f1 == f2:
-            print("{} é igual a {}".format(f1, f2))
-        elif f1 > f2:
-            print("{} é maior que {}".format(f1, f2))
-        else:
-            print("{} é maior que {}".format(f2, f1))
-        n-=1
+        print("número inválida")
+if N>0:
+    print("Menor valor = {}".format(menor))
+    print("Maior valor = {}".format(maior))
+else:
+    print("A quantidade N não é válida")
 print('\n\nFim do Programa')
