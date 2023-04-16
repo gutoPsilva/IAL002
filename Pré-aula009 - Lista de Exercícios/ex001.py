@@ -7,3 +7,5 @@ while len(L) < 10:
 
 for elemento in L:
     print(elemento)
+    
+print("\n\nIsso é tudo pessoal!")
