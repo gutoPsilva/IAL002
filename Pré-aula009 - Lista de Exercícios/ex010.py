@@ -24,3 +24,5 @@ elif tamanho == 1:
     print("O valor está na lista, sua posição é: {}".format(zIndex))
 else:
     print("Não está na lista.")
+
+print("\n\nIsso é tudo pessoal!")
