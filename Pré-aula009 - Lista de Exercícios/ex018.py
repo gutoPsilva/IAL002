@@ -12,3 +12,5 @@ while Min < Max: # inclui o minimo e o máximo
         L.append(Min)
     Min+=1
 print("Divisíveis por 7 ENTRE os dois valores: \n{}".format(L))
+
+print("\n\nIsso é tudo pessoal!")

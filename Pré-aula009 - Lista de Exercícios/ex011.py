@@ -17,4 +17,5 @@ while i < N:
     else: # senão deletar
         i += 1 # adiciona 1 ao index para fechamento do while
 print(L)
+
 print("\n\nIsso é tudo pessoal!")

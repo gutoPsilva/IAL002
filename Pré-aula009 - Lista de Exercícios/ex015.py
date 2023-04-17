@@ -23,3 +23,5 @@ R = A + B
 print("nA = {}, lista:\n{}".format(nA, A))
 print("nB = {}, lista:\n{}".format(nB, B))
 print("nR = {}, lista:\n{}".format(nR, R))
+
+print("\n\nIsso é tudo pessoal!")
