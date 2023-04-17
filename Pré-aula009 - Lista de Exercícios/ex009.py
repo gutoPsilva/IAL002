@@ -12,4 +12,5 @@ if X in L:
     print("{} está na lista.".format(X))
 else:
     print("{} NÃO está na lista.".format(X))
+    
 print("\n\nIsso é tudo pessoal!")

@@ -27,3 +27,5 @@ while passnum > 0 and exchanges:
     passnum -= 1
 
 print("Lista ordenada: \n{}".format(L))
+
+print("\n\nIsso é tudo pessoal!")

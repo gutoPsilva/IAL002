@@ -15,4 +15,5 @@ if N == 0:
 else:
     for elemento in L:
         print(elemento)
+
 print("\n\nIsso é tudo pessoal!")

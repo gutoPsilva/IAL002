@@ -20,4 +20,5 @@ if N == 0:
 else:
     print("A lista NEG possui {} elementos, seus valores são:\n{}".format(len(NEG), NEG))
     print("A lista POS possui {} elementos, seus valores são:\n{}".format(len(POS), POS))
+    
 print("\n\nIsso é tudo pessoal!")

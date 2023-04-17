@@ -15,3 +15,5 @@ while i < 10:
     i+=1
 C = A+B
 print(C)
+
+print("\n\nIsso é tudo pessoal!")

@@ -15,4 +15,5 @@ if N == 0:
     print("Não foram inseridos dados.")
 else:
     print(L)
+    
 print("\n\nIsso é tudo pessoal!")
