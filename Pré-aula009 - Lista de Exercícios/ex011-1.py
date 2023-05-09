@@ -3,7 +3,7 @@ N = int(input("Digite o valor de N: "))
 L = []
 i = 0
 while i < N:
-    x = randint(0, 1000)
+    x = randint(0, 10)
     L.append(x)
     i+=1
 print(L)
@@ -19,5 +19,7 @@ while i < N:
     else: # senão deletar
         i += 1 # adiciona 1 ao index para fechamento do while
 print(L)
+
+#correr do fim ao ínicio
 
 print("\n\nIsso é tudo pessoal!")

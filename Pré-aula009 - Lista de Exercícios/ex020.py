@@ -16,8 +16,8 @@ print("Lista desordenada: \n{}".format(L))
 # se for menor, para, senão, continua.
 exchanges = True
 passnum = len(L)-1 # -1 pois o range pega do 0 até -1 do Len
-while passnum > 0 and exchanges:
-    exchanges = False # não houve troca ainda
+while passnum > 0 and exchanges: ## houve trocas anteriores
+    exchanges = False # não houve troca ainda // está ordenado
     for i in range(passnum):
         if L[i] > L[i+1]: # se o e1 for maior que e2, a troca é feita!
             exchanges = True

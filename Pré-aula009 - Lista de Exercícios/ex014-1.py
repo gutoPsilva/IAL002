@@ -17,4 +17,10 @@ while i < 10:
 C = A+B
 print(C)
 
+# forma genérica p qql linguagem
+S = []
+for i in range(10):
+    S.append(A[i])
+print("A lista S é:\n{}".format(S))
+
 print("\n\nIsso é tudo pessoal!")
