@@ -19,7 +19,7 @@ if N>1 and N<1000:
             
         # padrão p2  1 - 2 - 1 - 4 - 1 - 6 - ...
         # padrão p3  1 - 6(xP3) - 1 - 18(xP3+12) - 1 - 36(xP3+18) - ...
-        if verifica == True: 
+        if verifica: 
             p2 += 1 # soma 1
             p3 += 1
             verifica = False
