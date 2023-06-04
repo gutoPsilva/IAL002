@@ -1,0 +1,12 @@
+1 - excluí variáveis 'ausente' e 'invalido', pois o len da lista desses 2 já retorna a quantidade de elementos ausentes e invalidos que existem;
+ 1.1 - no print final dos ausentes e invalidos apenas substitui essas variáveis pelo len das listas.
+
+
+2 - na leitura do arquivo ele verifica se o cod do arquivo está dentro do intervalo, se, e somente se estiver dentro do intervalo, ele adiciona nas listas, 
+ 2.1 - não é preciso verificar se o código é inválido com o else NECESSARIAMENTE na leitura(1.1), pois só são considerados códigos válidos nas listas
+ 2.1.1 - quando há o input N e a condicional que verifica se N está fora do intervalo for TRUE, esse N é adicionado a lista dos invalidos
+ 2.2 - não há necessidade de usar o else, já que o if não será executado e basta seguir para a próxima leitura de linha(mesma coisa do 3 e do 4);
+
+3 - a releitura do input N está sendo feita 3 vezes, no if que verifica se está fora do intervalo, no "if N in listcod" E no else caso não esteja na lista, deixei somente uma releitura de N fora de todas essas condicionais, pois só é necessária a releitura depois de fazer todas as operações, então basicamente só é necessário a releitura no final do WHILE para validar se é diferente de 0.
+
+4 - o incremento de i no while está sendo feito no if e no else, é o mesmo caso do 3, basta remover o else e deixar o incremento relacionado diretamente ao WHILE, pois caso o if seja executado ou não, o incremento é feito de qualquer modo.

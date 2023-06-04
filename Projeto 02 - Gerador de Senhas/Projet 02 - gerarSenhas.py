@@ -83,5 +83,5 @@ arqSen.close()
 arqRM.close()
 
 print("\nSenhas geradas com sucesso! Verifique o arquivo 'SENHAS.TXT'")
-
+print('sex')
 print("\nFim do Programa.")
