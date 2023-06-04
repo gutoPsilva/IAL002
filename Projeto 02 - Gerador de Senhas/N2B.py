@@ -2,7 +2,7 @@ from random import randint
 
 print("Gustavo Pereira da Silva")
 print("Vinicius Corrêa Carvalho")
-print("Projeto 02 - Gerador de Senhas Aleatórias\n")
+print("Projeto 02 - Gerador de Senhas\n")
 
 tipoSenha = input("Digite o tipo de senha: ")
 while(tipoSenha != "a" and tipoSenha != "b" and tipoSenha != "c" and tipoSenha != "d" and tipoSenha != "e"):
@@ -65,23 +65,22 @@ def geraSenha(Tipo, Tam):
 arqRM = open("MATR.TXT", "r")
 arqSen = open("SENHAS.TXT", "w")
 
-linhasRM = []
+listaRM = []
 listaSenhas = []
 
-linhaRM = arqRM.readline().rstrip()
+linhaRM = arqRM.readline().rstrip() # leitura do arquivo
 while linhaRM != "":
-  linhasRM.append(linhaRM)
+  listaRM.append(linhaRM)
   listaSenhas.append(geraSenha(tipoSenha, tamanhoSenha))
   linhaRM = arqRM.readline().rstrip()
 
 i = 0
-while i < len(linhasRM):
-  arqSen.write(linhasRM[i] + ";" + listaSenhas[i] + ";\n")
+while i < len(listaRM):
+  arqSen.write(listaRM[i] + ";" + listaSenhas[i] + ";\n")
   i+=1
 
 arqSen.close()
 arqRM.close()
 
 print("\nSenhas geradas com sucesso! Verifique o arquivo 'SENHAS.TXT'")
-print('sex')
 print("\nFim do Programa.")
