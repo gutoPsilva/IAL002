@@ -16,9 +16,8 @@ while(tamanhoSenha <= 0):
 
 def geraSenha(Tipo, Tam):
   senha = ''
-  while(Tam > 0):
-    if(Tipo == 'a'): # algarismo 0-9
-      randomCaracter = randint(0, 9)
+  while(len(senha) < Tam):
+    randomCaracter = randint(0, 9) # sempre que tipoPossivel = 0 será usado esse randomCaracter dos algarismos, APENAS b vai alterar o randomCaracter quando o tipoPossivel for = 0 para ser maiúscula
 
     if(Tipo == 'b'): # ASCII A-z
       tipoPossivel = randint(0, 1) # 0 - maiuscula, 1 - minuscula
@@ -30,54 +29,37 @@ def geraSenha(Tipo, Tam):
 
     if(Tipo == 'c'):
       tipoPossivel = randint(0, 1) # 0 - algarismo, 1 - maiúscula
-
-      if(tipoPossivel == 0): # algarismo
-        randomCaracter = randint(0, 9)
-      else: # minuscula
+      if(tipoPossivel == 1): # minuscula
         randomCaracter = chr(randint(65, 90))
       
     if(Tipo == 'd'):
       tipoPossivel = randint(0, 2) # 0 - algarismo, 1 - maiuscula, 2 - minuscula
-      if(tipoPossivel == 0):
-        randomCaracter = randint(0, 9)
-      elif(tipoPossivel == 1):
+      if(tipoPossivel == 1):
         randomCaracter = chr(randint(65, 90))
-      else:
+      elif(tipoPossivel == 2):
         randomCaracter = chr(randint(97, 122))
       
     if(Tipo == 'e'):
       tipoPossivel = randint(0, 3) # 0 - algarismo, 1 - maiuscula, 2 - minuscula, 3 - especiais
-      if(tipoPossivel == 0):
-        randomCaracter = randint(0, 9)
-      elif(tipoPossivel == 1):
+      if(tipoPossivel == 1):
         randomCaracter = chr(randint(65, 90))
       elif(tipoPossivel == 2):
         randomCaracter = chr(randint(97, 122))
-      else: # - 45 _ 95 : 58 @ 64 # 35 $ 36 & 38 ? 63
+      elif(tipoPossivel == 3): # - 45 _ 95 : 58 @ 64 # 35 $ 36 & 38 ? 63
         listaEspecial = [45, 95, 58, 64, 35, 36, 38, 63]
         randomIndex = randint(0, 7)
         randomCaracter = chr(listaEspecial[randomIndex])
 
     senha += str(randomCaracter)
-    Tam -= 1
   return senha
 
 arqRM = open("MATR.TXT", "r")
 arqSen = open("SENHAS.TXT", "w")
 
-listaRM = []
-listaSenhas = []
-
 linhaRM = arqRM.readline().rstrip() # leitura do arquivo
 while linhaRM != "":
-  listaRM.append(linhaRM)
-  listaSenhas.append(geraSenha(tipoSenha, tamanhoSenha))
+  arqSen.write(linhaRM + ";" + geraSenha(tipoSenha, tamanhoSenha) + ";\n")
   linhaRM = arqRM.readline().rstrip()
-
-i = 0
-while i < len(listaRM):
-  arqSen.write(listaRM[i] + ";" + listaSenhas[i] + ";\n")
-  i+=1
 
 arqSen.close()
 arqRM.close()
