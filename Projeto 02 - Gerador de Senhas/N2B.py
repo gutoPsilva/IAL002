@@ -14,42 +14,37 @@ while(tamanhoSenha <= 0):
   print("A senha deve ter ao menos comprimento 1.")
   tamanhoSenha = input("Digite o comprimento da senha: ")
 
+def geraCaracter(tipoPossivel):
+  if tipoPossivel == 0: # Algarismos
+      randomCaracter = randint(0, 9)   
+  elif tipoPossivel == 1: # ASCII A-Z
+      randomCaracter = chr(randint(65, 90)) # chr() converte o número para o caracter correspondente na tabela ASCII
+  elif tipoPossivel == 2: # ASCII a-z
+      randomCaracter = chr(randint(97,122))
+  else: # ASCII caracteres especiais
+      listEspecial = [45, 95, 58, 64, 35, 36, 38, 63]
+      randomIndex = randint(0, 7)
+      randomCaracter = chr(listEspecial[randomIndex])
+  return randomCaracter
+
 def geraSenha(Tipo, Tam):
   senha = ''
-  while(len(senha) < Tam):
-    randomCaracter = randint(0, 9) # sempre que tipoPossivel = 0 será usado esse randomCaracter dos algarismos, APENAS b vai alterar o randomCaracter quando o tipoPossivel for = 0 para ser maiúscula
+  while(len(senha) < Tam): 
+    if (Tipo == "a"): # 0 - algarismo
+      randomCaracter = geraCaracter(0) 
 
-    if(Tipo == 'b'): # ASCII A-z
-      tipoPossivel = randint(0, 1) # 0 - maiuscula, 1 - minuscula
-      
-      if(tipoPossivel == 0): # maiúscula 
-        randomCaracter = chr(randint(65, 90)) # chr() converte o número com o caracter correspondente da tabela ASCII
-      else: # minúscula
-        randomCaracter = chr(randint(97, 122))
+    elif(Tipo == 'b'): # 1 - maiuscula, 2 - minuscula
+      randomCaracter = geraCaracter(randint(1, 2))
 
-    if(Tipo == 'c'):
-      tipoPossivel = randint(0, 1) # 0 - algarismo, 1 - maiúscula
-      if(tipoPossivel == 1): # minuscula
-        randomCaracter = chr(randint(65, 90))
+    elif(Tipo == 'c'): # 0 - algarismo, 1 - maiúscula
+      randomCaracter = geraCaracter(randint(0, 1))
       
-    if(Tipo == 'd'):
-      tipoPossivel = randint(0, 2) # 0 - algarismo, 1 - maiuscula, 2 - minuscula
-      if(tipoPossivel == 1):
-        randomCaracter = chr(randint(65, 90))
-      elif(tipoPossivel == 2):
-        randomCaracter = chr(randint(97, 122))
+    elif(Tipo == 'd'): # 0 - algarismo, 1 - maiuscula, 2 - minuscula
+      randomCaracter = geraCaracter(randint(0, 2))
       
-    if(Tipo == 'e'):
-      tipoPossivel = randint(0, 3) # 0 - algarismo, 1 - maiuscula, 2 - minuscula, 3 - especiais
-      if(tipoPossivel == 1):
-        randomCaracter = chr(randint(65, 90))
-      elif(tipoPossivel == 2):
-        randomCaracter = chr(randint(97, 122))
-      elif(tipoPossivel == 3): # - 45 _ 95 : 58 @ 64 # 35 $ 36 & 38 ? 63
-        listaEspecial = [45, 95, 58, 64, 35, 36, 38, 63]
-        randomIndex = randint(0, 7)
-        randomCaracter = chr(listaEspecial[randomIndex])
-
+    else: # 0 - algarismo, 1 - maiuscula, 2 - minuscula, 3 - especiais
+      randomCaracter = geraCaracter(randint(0, 3))
+      
     senha += str(randomCaracter)
   return senha
 
