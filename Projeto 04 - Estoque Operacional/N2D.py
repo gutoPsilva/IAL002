@@ -11,13 +11,11 @@ dadosProd = [lisCodProd, lisEmEstoq, lisEmEstoq]
 linha = arqProd.readline().rstrip()
 while linha != '':
   dadoProd = linha.split(';')
-  lisCodProd.append(int(dadoProd[0]))
+  lisCodProd.append(dadoProd[0])
   lisEmEstoq.append(int(dadoProd[1]))
   lisMinEsto.append(int(dadoProd[2]))
   linha = arqProd.readline().rstrip()
 arqProd.close()
-
-
 
 arqVend = open("c1_vendas.txt", "r")
 lisCodVend = []
@@ -29,7 +27,7 @@ dadosVend = [lisCodVend, lisQntVend, lisSitVend, lisCnlVend]
 linha = arqVend.readline().rstrip()
 while linha!= '':
   dadoVend = linha.split(';')
-  lisCodVend.append(int(dadoVend[0]))
+  lisCodVend.append(dadoVend[0])
   lisQntVend.append(int(dadoVend[1]))
   lisSitVend.append(int(dadoVend[2]))
   lisCnlVend.append(int(dadoVend[3]))
@@ -38,25 +36,28 @@ arqVend.close()
 
 print(dadosProd)
 
-x = input('sex: ')
+x = input('x: ')
 if x == 's':
   y = 1
   for item in dadosVend:
     print("\nitem {}: {}\n".format(y, item))
     y += 1
 
-lisNotInList = []
+lisInvalidCod = []
 for item in lisCodVend:
+  itemIndex = lisCodVend.index(item)
   if item in lisCodProd:
 
   else:
-    lisNotInLst.append(item)
+    lisInvalidCod.append(item)
+    # print(lisCodVend.index(item))
+
+print(inList)
 
 # for item in range (len(dadosVend)):
 #   codVen = i[0]
 #   if codVen in listCodProd:
 #     print(i)
-
 
 # arqTRAF = open("TRANSFERE.TXT", "w")
 # for i in range (len(lisCOD)):
