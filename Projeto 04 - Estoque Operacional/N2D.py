@@ -3,28 +3,59 @@ print("Vinicius Corrêa Carvalho")
 print("Projeto 04 - Estoque Operacional\n")
 
 arqProd = open("c1_produtos.txt", "r")
-codProd = []
-estProd = []
-minProd = []
-dadosProd = []
+lisCodProd = []
+lisEmEstoq = []
+lisMinEsto = []
+dadosProd = [lisCodProd, lisEmEstoq, lisEmEstoq]
 
 linha = arqProd.readline().rstrip()
 while linha != '':
-  dadosProd.append(linha.split(';'))
+  dadoProd = linha.split(';')
+  lisCodProd.append(int(dadoProd[0]))
+  lisEmEstoq.append(int(dadoProd[1]))
+  lisMinEsto.append(int(dadoProd[2]))
   linha = arqProd.readline().rstrip()
 arqProd.close()
 
-print(dadosProd)
+
 
 arqVend = open("c1_vendas.txt", "r")
-dadosVend = []
+lisCodVend = []
+lisQntVend = []
+lisSitVend = []
+lisCnlVend = []
+dadosVend = [lisCodVend, lisQntVend, lisSitVend, lisCnlVend]
 
 linha = arqVend.readline().rstrip()
 while linha!= '':
-  dadosVend.append(linha.split(';'))
+  dadoVend = linha.split(';')
+  lisCodVend.append(int(dadoVend[0]))
+  lisQntVend.append(int(dadoVend[1]))
+  lisSitVend.append(int(dadoVend[2]))
+  lisCnlVend.append(int(dadoVend[3]))
   linha= arqVend.readline().rstrip()
 arqVend.close()
 
+print(dadosProd)
+
+x = input('sex: ')
+if x == 's':
+  y = 1
+  for item in dadosVend:
+    print("\nitem {}: {}\n".format(y, item))
+    y += 1
+
+lisNotInList = []
+for item in lisCodVend:
+  if item in lisCodProd:
+
+  else:
+    lisNotInLst.append(item)
+
+# for item in range (len(dadosVend)):
+#   codVen = i[0]
+#   if codVen in listCodProd:
+#     print(i)
 
 
 # arqTRAF = open("TRANSFERE.TXT", "w")
