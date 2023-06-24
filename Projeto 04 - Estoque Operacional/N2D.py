@@ -6,7 +6,7 @@ arqProd = open("c1_produtos.txt", "r")
 lisCodProd = []
 lisEmEstoq = []
 lisMinEsto = []
-dadosProd = [lisCodProd, lisEmEstoq, lisEmEstoq]
+# dadosProd = [lisCodProd, lisEmEstoq, lisEmEstoq]
 
 linha = arqProd.readline().rstrip()
 while linha != '':
@@ -22,7 +22,7 @@ lisCodVend = []
 lisQntVend = []
 lisSitVend = []
 lisCnlVend = []
-dadosVend = [lisCodVend, lisQntVend, lisSitVend, lisCnlVend]
+# dadosVend = [lisCodVend, lisQntVend, lisSitVend, lisCnlVend]
 
 linha = arqVend.readline().rstrip()
 while linha!= '':
@@ -34,33 +34,70 @@ while linha!= '':
   linha= arqVend.readline().rstrip()
 arqVend.close()
 
-print(dadosProd)
+# print(dadosProd)
 
-x = input('x: ')
-if x == 's':
-  y = 1
-  for item in dadosVend:
-    print("\nitem {}: {}\n".format(y, item))
-    y += 1
+# x = input('x: ')
+# if x == 's':
+#   y = 1
+#   for item in dadosVend:
+#     print("\nitem {}: {}\n".format(y, item))
+#     y += 1
 
-lisInvalidCod = []
-for item in lisCodVend:
-  itemIndex = lisCodVend.index(item)
-  if item in lisCodProd:
+todosProd = []
+i = 0
+for cod in lisCodProd:
+  linhaCod = []
+  QtVendas = 0
+  EstqPVendas = 0
+  Necess = 0
+  TransfPCO = 0
+  j = 0
+  for item in lisCodVend:
+    if cod == item:
+      QtVendas += lisQntVend[j] if lisSitVend[j] == 100 or lisSitVend[j] == 102 else 0
+      EstqPVendas = lisEmEstoq[i] - QtVendas
 
-  else:
-    lisInvalidCod.append(item)
+      if(EstqPVendas < lisMinEsto[i] and EstqPVendas < 0):
+        Necess = abs(EstqPVendas) + abs(lisMinEsto[i])
+      elif(EstqPVendas < lisMinEsto[i]):
+        Necess = lisMinEsto[i] - EstqPVendas
+      
+      TransfPCO = 10 if Necess > 1 and Necess < 10 else Necess
+
+      linhaCod = [cod, lisEmEstoq[i], lisMinEsto[i], QtVendas, EstqPVendas, Necess, TransfPCO]
+    j += 1
+  todosProd.append(linhaCod)
+  i += 1
+
+for linha in todosProd:
+  print('{}\n'.format(linha))
+
+arqTRF = open("TRANSFERE.TXT", "w")
+
+ini = True
+for prod in todosProd:
+  if ini:
+    arqTRAF.write("Necessidade de Transferencia Armazem para CO\n\n")
+    
+    ini = False
+  arqTRAF.write("{}, {}, {} \n".format(lisCOD[i], lisQntINI[i], lisQntMIN[i]))
+
+# index dos cods invalidos para pegar seu valor e sua linha
+# lisInvalidCodIndex = []
+# for item in lisCodVend:
+#   if item not in lisCodProd:
+#     lisInvalidCodIndex.append(lisCodVend.index(item))
+
+# for item in lisCodVend:
+#   if item in lisCodProd:
+#     itemIndex = lisCodVend.index(item)
+#     lisQntVend[itemIndex]
+#   else:
+#     lisInvalidCod.append(item)
     # print(lisCodVend.index(item))
-
-print(inList)
 
 # for item in range (len(dadosVend)):
 #   codVen = i[0]
 #   if codVen in listCodProd:
 #     print(i)
 
-# arqTRAF = open("TRANSFERE.TXT", "w")
-# for i in range (len(lisCOD)):
-#   if i == 0:
-#     arqTRAF.write("Necessidade de Transferencia Armazem para CO\n\n")
-#   arqTRAF.write("{}, {}, {} \n".format(lisCOD[i], lisQntINI[i], lisQntMIN[i]))
