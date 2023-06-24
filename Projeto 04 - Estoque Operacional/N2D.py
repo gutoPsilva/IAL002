@@ -6,7 +6,6 @@ arqProd = open("c1_produtos.txt", "r")
 lisCodProd = []
 lisEmEstoq = []
 lisMinEsto = []
-# dadosProd = [lisCodProd, lisEmEstoq, lisEmEstoq]
 
 linha = arqProd.readline().rstrip()
 while linha != '':
@@ -22,7 +21,6 @@ lisCodVend = []
 lisQntVend = []
 lisSitVend = []
 lisCnlVend = []
-# dadosVend = [lisCodVend, lisQntVend, lisSitVend, lisCnlVend]
 
 linha = arqVend.readline().rstrip()
 while linha!= '':
@@ -34,17 +32,14 @@ while linha!= '':
   linha= arqVend.readline().rstrip()
 arqVend.close()
 
-# print(dadosProd)
-
-# x = input('x: ')
-# if x == 's':
-#   y = 1
-#   for item in dadosVend:
-#     print("\nitem {}: {}\n".format(y, item))
-#     y += 1
-
 todosProd = []
 i = 0
+
+# estas variáveis servem apenas como parâmetro para definir o espaçamento das colunas na função lá embaixo
+compEstPV = 9 # 9 digitos, comprimento equivalente ao título
+compNeces = 7 # 7 digitos
+compTRF = 10 # 10 digitos
+
 for cod in lisCodProd:
   linhaCod = []
   QtVendas = 0
@@ -52,6 +47,7 @@ for cod in lisCodProd:
   Necess = 0
   TransfPCO = 0
   j = 0
+
   for item in lisCodVend:
     if cod == item:
       QtVendas += lisQntVend[j] if lisSitVend[j] == 100 or lisSitVend[j] == 102 else 0
@@ -63,41 +59,51 @@ for cod in lisCodProd:
         Necess = lisMinEsto[i] - EstqPVendas
       
       TransfPCO = 10 if Necess > 1 and Necess < 10 else Necess
-
       linhaCod = [cod, lisEmEstoq[i], lisMinEsto[i], QtVendas, EstqPVendas, Necess, TransfPCO]
+      
+      if len(str(EstqPVendas)) > compEstPV: compEstPV = len(str(EstqPVendas))
+      if len(str(Necess)) > compNeces: compNeces = len(str(Necess))
+      if len(str(TransfPCO)) > compTRF: compTRF = len(str(TransfPCO))
     j += 1
+
   todosProd.append(linhaCod)
   i += 1
 
-for linha in todosProd:
-  print('{}\n'.format(linha))
+# todas as colunas exceto a de produto possuem comprimentos variáveis, para definir seu espaçamento basta medir o comprimento do maior inteiro daquela coluna, ou usar o próprio titulo como comprimento + 2 espaços em branco para distancia-los
+def espacoMin(lista, tamTit):
+  valorMax = int('9' * tamTit)
+  if max(lista) > valorMax:
+    espaco = len(str(max(lista)))
+  else:
+    espaco = tamTit
+  return espaco + 2
+
+def formatacao():
+  compQtCO  = espacoMin(lisEmEstoq, 4)
+  compQtMin = espacoMin(lisMinEsto, 5)
+  compQtVen = espacoMin(lisQntVend, 8)
+  # o comprimento das outras 3 colunas já foi definido anteriormente, mas sem considerar os 2 espaços em branco
+  espacamento = "{:<7}{:>" + str(compQtCO) + "}{:>" + str(compQtMin) + "}{:>" + str(compQtVen) + "}{:>" + str(compEstPV+2) + "}{:>" + str(compNeces+2) + "}{:>" + str(compTRF+2) + "}\n"
+  return espacamento
 
 arqTRF = open("TRANSFERE.TXT", "w")
-
 ini = True
 for prod in todosProd:
   if ini:
-    arqTRAF.write("Necessidade de Transferencia Armazem para CO\n\n")
-    
+    arqTRF.write("Necessidade de Transferência Armazém para CO\n\n")
+    arqTRF.write(formatacao().format("Produto", "QtCO", "QtMin", "QtVendas", "Estq.após", "Necess.", "Transf. de"))
+    arqTRF.write(formatacao().format("", "", "", "", "Vendas", "", "Arm p/ CO"))
     ini = False
-  arqTRAF.write("{}, {}, {} \n".format(lisCOD[i], lisQntINI[i], lisQntMIN[i]))
+  arqTRF.write(formatacao().format(prod[0], prod[1], prod[2], prod[3], prod[4], prod[5], prod[6]))
+arqTRF.close()
 
 # index dos cods invalidos para pegar seu valor e sua linha
 # lisInvalidCodIndex = []
-# for item in lisCodVend:
-#   if item not in lisCodProd:
-#     lisInvalidCodIndex.append(lisCodVend.index(item))
+# x = 0
+# while x < len(lisCodVend):
+#   if lisCodVend[x] not in lisCodProd:
+#     lisInvalidCodIndex.append(x)
+#   elif 
+#   x += 1
 
-# for item in lisCodVend:
-#   if item in lisCodProd:
-#     itemIndex = lisCodVend.index(item)
-#     lisQntVend[itemIndex]
-#   else:
-#     lisInvalidCod.append(item)
-    # print(lisCodVend.index(item))
-
-# for item in range (len(dadosVend)):
-#   codVen = i[0]
-#   if codVen in listCodProd:
-#     print(i)
-
+# print(lisInvalidCodIndex)
