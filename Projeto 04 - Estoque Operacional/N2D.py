@@ -37,6 +37,12 @@ compEstPV = 9 # 9 digitos, comprimento equivalente ao título
 compNeces = 7 # 7 digitos
 compTRF = 10 # 10 digitos
 
+# quantidade de vendas por canal
+representantesV = 0
+websiteV = 0
+mobAndroidV = 0
+mobIphoneV = 0
+
 todosProd = []
 i = 0
 totDiv = []
@@ -70,10 +76,20 @@ for cod in lisCodProd:
         totDiv.append(str(j+1) + " - Venda cancelada")
       elif lisSitVend[j] == 190:
         totDiv.append(str(j+1) + " - Venda não finalizada")
-      elif lisSitVend[j] == 999:
+      else: # só resta o código 999, erro desconhecido
         totDiv.append(str(j+1) + " - Erro desconhecido. Acionar a equipe de TI.")
+    
+    else:
+      if lisSitVend[j] == 100 or lisSitVend[j] == 102:
+        if lisCnlVend[j] == 1: 
+          representantesV += lisQntVend[j]
+        elif lisCnlVend[j] == 2:
+          websiteV += lisQntVend[j]
+        elif lisCnlVend[j] == 3:
+          mobAndroidV += lisQntVend[j]
+        else: # só resta o código 4, do iPhone
+          mobIphoneV += lisQntVend[j]
     j += 1
-
   todosProd.append(linhaCod)
   i += 1
 
@@ -112,6 +128,18 @@ while i < len(lisCodVend):
     totDiv.append(str(i+1) + " - Código de Produto não encontrado " + lisCodVend[i])
   i += 1
 
+def printar(texto, qntd):
+  return arqTOTCN.write("{:<21}{:>10}\n".format(texto, qntd))
+
+arqTOTCN = open("TOTCANAIS.TXT", "w")
+arqTOTCN.write("Quantidades de Vendas por canal\n\n")
+printar("Canal", "QtVendas")
+printar("1 - Representantes", representantesV)
+printar("2 - Website", websiteV)
+printar("3 - App movel Android", mobAndroidV+1)
+printar("4 - App movel iPhone", mobIphoneV)
+arqTOTCN.close()
+
 # ordDiv = []
 # arqDIV = open("DIVERGENCIAS.TXT", "w")
 
@@ -127,9 +155,9 @@ while i < len(lisCodVend):
 # print(ordDiv)
 # print(totDiv)
 
-for item in ordDiv:
-  arqDIV.write("Linha " + "\n")
-arqDIV.close()
+# for item in ordDiv:
+#   arqDIV.write("Linha " + "\n")
+# arqDIV.close()
 # for i in range(len(totDiv)):
 #   separar = totDiv[i].split()
 #   nmLinha = int(separar[0])
