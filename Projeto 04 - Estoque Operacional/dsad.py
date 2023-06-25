@@ -1,3 +1,2 @@
-compEstPV = -9999999999
-compEstPV = len(str(compEstPV))
-print(compEstPV)
+lis = [1, 5, 2, 12, 3, 0]
+print(sorted(lis))

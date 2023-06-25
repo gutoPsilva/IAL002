@@ -32,14 +32,14 @@ while linha!= '':
   linha= arqVend.readline().rstrip()
 arqVend.close()
 
-todosProd = []
-i = 0
-
-# estas variáveis servem apenas como parâmetro para definir o espaçamento das colunas na função lá embaixo
+# estas variáveis servem apenas para definir o espaçamento das colunas na função lá embaixo
 compEstPV = 9 # 9 digitos, comprimento equivalente ao título
 compNeces = 7 # 7 digitos
 compTRF = 10 # 10 digitos
 
+todosProd = []
+i = 0
+totDiv = []
 for cod in lisCodProd:
   linhaCod = []
   QtVendas = 0
@@ -50,20 +50,28 @@ for cod in lisCodProd:
 
   for item in lisCodVend:
     if cod == item:
-      QtVendas += lisQntVend[j] if lisSitVend[j] == 100 or lisSitVend[j] == 102 else 0
-      EstqPVendas = lisEmEstoq[i] - QtVendas
+      if lisSitVend[j] == 100 or lisSitVend[j] == 102:
+        QtVendas += lisQntVend[j]
+        EstqPVendas = lisEmEstoq[i] - QtVendas
 
-      if(EstqPVendas < lisMinEsto[i] and EstqPVendas < 0):
-        Necess = abs(EstqPVendas) + abs(lisMinEsto[i])
-      elif(EstqPVendas < lisMinEsto[i]):
-        Necess = lisMinEsto[i] - EstqPVendas
-      
-      TransfPCO = 10 if Necess > 1 and Necess < 10 else Necess
-      linhaCod = [cod, lisEmEstoq[i], lisMinEsto[i], QtVendas, EstqPVendas, Necess, TransfPCO]
-      
-      if len(str(EstqPVendas)) > compEstPV: compEstPV = len(str(EstqPVendas))
-      if len(str(Necess)) > compNeces: compNeces = len(str(Necess))
-      if len(str(TransfPCO)) > compTRF: compTRF = len(str(TransfPCO))
+        if(EstqPVendas < lisMinEsto[i] and EstqPVendas < 0):
+          Necess = abs(EstqPVendas) + abs(lisMinEsto[i])
+        elif(EstqPVendas < lisMinEsto[i]):
+          Necess = lisMinEsto[i] - EstqPVendas
+        
+        TransfPCO = 10 if Necess > 1 and Necess < 10 else Necess
+        linhaCod = [cod, lisEmEstoq[i], lisMinEsto[i], QtVendas, EstqPVendas, Necess, TransfPCO]
+        
+        if len(str(EstqPVendas)) > compEstPV: compEstPV = len(str(EstqPVendas))
+        if len(str(Necess)) > compNeces: compNeces = len(str(Necess))
+        if len(str(TransfPCO)) > compTRF: compTRF = len(str(TransfPCO))
+
+      elif lisSitVend[j] == 135:
+        totDiv.append("Linha " + str(j+1) + " - Venda cancelada")
+      elif lisSitVend[j] == 190:
+        totDiv.append("Linha " + str(j+1) + " - Venda não finalizada")
+      elif lisSitVend[j] == 999:
+        totDiv.append("Linha " + str(j+1) + " - Erro desconhecido. Acionar a equipe de TI.")
     j += 1
 
   todosProd.append(linhaCod)
@@ -98,12 +106,10 @@ for prod in todosProd:
 arqTRF.close()
 
 # index dos cods invalidos para pegar seu valor e sua linha
-# lisInvalidCodIndex = []
-# x = 0
-# while x < len(lisCodVend):
-#   if lisCodVend[x] not in lisCodProd:
-#     lisInvalidCodIndex.append(x)
-#   elif 
-#   x += 1
+i = 0
+while i < len(lisCodVend):
+  if lisCodVend[i] not in lisCodProd:
+    totDiv.append("Linha " + str(i+1) + " - Código de Produto não encontrado " + lisCodVend[i])
+  i += 1
 
-# print(lisInvalidCodIndex)
+print(totDiv)
