@@ -67,11 +67,11 @@ for cod in lisCodProd:
         if len(str(TransfPCO)) > compTRF: compTRF = len(str(TransfPCO))
 
       elif lisSitVend[j] == 135:
-        totDiv.append("Linha " + str(j+1) + " - Venda cancelada")
+        totDiv.append(str(j+1) + " - Venda cancelada")
       elif lisSitVend[j] == 190:
-        totDiv.append("Linha " + str(j+1) + " - Venda não finalizada")
+        totDiv.append(str(j+1) + " - Venda não finalizada")
       elif lisSitVend[j] == 999:
-        totDiv.append("Linha " + str(j+1) + " - Erro desconhecido. Acionar a equipe de TI.")
+        totDiv.append(str(j+1) + " - Erro desconhecido. Acionar a equipe de TI.")
     j += 1
 
   todosProd.append(linhaCod)
@@ -109,7 +109,39 @@ arqTRF.close()
 i = 0
 while i < len(lisCodVend):
   if lisCodVend[i] not in lisCodProd:
-    totDiv.append("Linha " + str(i+1) + " - Código de Produto não encontrado " + lisCodVend[i])
+    totDiv.append(str(i+1) + " - Código de Produto não encontrado " + lisCodVend[i])
   i += 1
 
-print(totDiv)
+# ordDiv = []
+# arqDIV = open("DIVERGENCIAS.TXT", "w")
+
+# for div in totDiv:
+#   separar = div.split()
+#   nmLinha = int(separar[0])
+#   ordDiv.append(nmLinha)
+
+# def myFunc(nmbr):
+  
+
+# ordDiv.sort(key=myFunc)
+# print(ordDiv)
+# print(totDiv)
+
+for item in ordDiv:
+  arqDIV.write("Linha " + "\n")
+arqDIV.close()
+# for i in range(len(totDiv)):
+#   separar = totDiv[i].split()
+#   nmLinha = int(separar[0])
+#   xDiv.append(nmLinha)
+#   xDiv.sort()
+
+# ordDiv = []
+# i = 0
+# while i < len(totDiv):
+#   separar = totDiv[i].split()
+#   nmLinha = int(separar[0])
+#   ordDiv.append(nmLinha)
+#   ordDiv.sort()
+#   i+=1
+

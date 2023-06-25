@@ -1,2 +1,4 @@
-lis = [1, 5, 2, 12, 3, 0]
-print(sorted(lis))
+lis = ["7 - Venda não SEXO", "15 - Venda não finalizada"]
+for item in lis:
+  resultado = item.split()
+  print(resultado[0])
