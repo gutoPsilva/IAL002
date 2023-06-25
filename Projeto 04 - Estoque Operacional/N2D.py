@@ -2,7 +2,7 @@ print("Gustavo Pereira da Silva")
 print("Vinicius Corrêa Carvalho")
 print("Projeto 04 - Estoque Operacional\n")
 
-arqProd = open("c1_produtos.txt", "r")
+arqProd = open("c2_produtos.txt", "r")
 lisCodProd = []
 lisEmEstoq = []
 lisMinEsto = []
@@ -16,7 +16,7 @@ while linha != '':
   linha = arqProd.readline().rstrip()
 arqProd.close()
 
-arqVend = open("c1_vendas.txt", "r")
+arqVend = open("c2_vendas.txt", "r")
 lisCodVend = []
 lisQntVend = []
 lisSitVend = []
@@ -44,8 +44,8 @@ mobAndroidV = 0
 mobIphoneV = 0
 
 todosProd = []
-i = 0
 totDiv = []
+i = 0
 for cod in lisCodProd:
   linhaCod = []
   QtVendas = 0
@@ -55,6 +55,16 @@ for cod in lisCodProd:
   j = 0
 
   for item in lisCodVend:
+    if lisSitVend[j] == 100 or lisSitVend[j] == 102: # somar as vendas dos canais mesmo se os produtos tiverem cod inválido
+      if lisCnlVend[j] == 1: 
+        representantesV += lisQntVend[j]
+      elif lisCnlVend[j] == 2:
+        websiteV += lisQntVend[j]
+      elif lisCnlVend[j] == 3:
+        mobAndroidV += lisQntVend[j]
+      else: # só resta o código 4, do iPhone
+        mobIphoneV += lisQntVend[j]
+    
     if cod == item:
       if lisSitVend[j] == 100 or lisSitVend[j] == 102:
         QtVendas += lisQntVend[j]
@@ -71,24 +81,13 @@ for cod in lisCodProd:
         if len(str(EstqPVendas)) > compEstPV: compEstPV = len(str(EstqPVendas))
         if len(str(Necess)) > compNeces: compNeces = len(str(Necess))
         if len(str(TransfPCO)) > compTRF: compTRF = len(str(TransfPCO))
-
+        
       elif lisSitVend[j] == 135:
-        totDiv.append(str(j+1) + " - Venda cancelada")
+          totDiv.append(str(j+1) + " - Venda cancelada")
       elif lisSitVend[j] == 190:
         totDiv.append(str(j+1) + " - Venda não finalizada")
-      else: # só resta o código 999, erro desconhecido
-        totDiv.append(str(j+1) + " - Erro desconhecido. Acionar a equipe de TI.")
-    
-    else:
-      if lisSitVend[j] == 100 or lisSitVend[j] == 102:
-        if lisCnlVend[j] == 1: 
-          representantesV += lisQntVend[j]
-        elif lisCnlVend[j] == 2:
-          websiteV += lisQntVend[j]
-        elif lisCnlVend[j] == 3:
-          mobAndroidV += lisQntVend[j]
-        else: # só resta o código 4, do iPhone
-          mobIphoneV += lisQntVend[j]
+      else:
+        totDiv.append(str(j+1) + " - Erro desconhecido. Acionar equipe de TI")
     j += 1
   todosProd.append(linhaCod)
   i += 1
@@ -121,6 +120,18 @@ for prod in todosProd:
   arqTRF.write(formatacao().format(prod[0], prod[1], prod[2], prod[3], prod[4], prod[5], prod[6]))
 arqTRF.close()
 
+def printar(texto, qntd):
+  return arqTOTCN.write("{:<21}{:>10}\n".format(texto, qntd))
+
+arqTOTCN = open("TOTCANAIS.TXT", "w")
+arqTOTCN.write("Quantidades de Vendas por canal\n\n")
+printar("Canal", "QtVendas")
+printar("1 - Representantes", round(representantesV/len(lisCodProd))) # o processo feito para somar os totais é realizado N vezes de acordo com os N codigos de produtos existentes, portanto, dividir esse total pela quantidade de N produtos resulta na venda total
+printar("2 - Website", round(websiteV/len(lisCodProd)))
+printar("3 - App móvel Android", round(mobAndroidV/len(lisCodProd)))
+printar("4 - App móvel iPhone", round(mobIphoneV/len(lisCodProd)))
+arqTOTCN.close()
+
 # index dos cods invalidos para pegar seu valor e sua linha
 i = 0
 while i < len(lisCodVend):
@@ -128,48 +139,17 @@ while i < len(lisCodVend):
     totDiv.append(str(i+1) + " - Código de Produto não encontrado " + lisCodVend[i])
   i += 1
 
-def printar(texto, qntd):
-  return arqTOTCN.write("{:<21}{:>10}\n".format(texto, qntd))
+arqDIV = open("DIVERGENCIAS.TXT", "w")
+totDiv.sort() # não ordena as divergências de acordo com a linha :[, talvez se o loop geral lá de cima verificasse cada linha de venda com os códigos ao invés de comparar cada código com todas as linhas não teria esse problema
+for div in totDiv:
+  arqDIV.write("Linha " + str(div) + "\n")
+arqDIV.close()
 
-arqTOTCN = open("TOTCANAIS.TXT", "w")
-arqTOTCN.write("Quantidades de Vendas por canal\n\n")
-printar("Canal", "QtVendas")
-printar("1 - Representantes", representantesV)
-printar("2 - Website", websiteV)
-printar("3 - App movel Android", mobAndroidV+1)
-printar("4 - App movel iPhone", mobIphoneV)
-arqTOTCN.close()
+# lixeira de ideias
 
 # ordDiv = []
-# arqDIV = open("DIVERGENCIAS.TXT", "w")
-
 # for div in totDiv:
 #   separar = div.split()
 #   nmLinha = int(separar[0])
 #   ordDiv.append(nmLinha)
-
-# def myFunc(nmbr):
-  
-
-# ordDiv.sort(key=myFunc)
-# print(ordDiv)
-# print(totDiv)
-
-# for item in ordDiv:
-#   arqDIV.write("Linha " + "\n")
-# arqDIV.close()
-# for i in range(len(totDiv)):
-#   separar = totDiv[i].split()
-#   nmLinha = int(separar[0])
-#   xDiv.append(nmLinha)
-#   xDiv.sort()
-
-# ordDiv = []
-# i = 0
-# while i < len(totDiv):
-#   separar = totDiv[i].split()
-#   nmLinha = int(separar[0])
-#   ordDiv.append(nmLinha)
-#   ordDiv.sort()
-#   i+=1
-
+#   ordDIv.sort() # assim as linhas se ordenam, mas e a descrição da divergência?
