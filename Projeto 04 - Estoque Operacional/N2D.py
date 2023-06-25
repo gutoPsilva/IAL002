@@ -62,7 +62,7 @@ for cod in lisCodProd:
         websiteV += lisQntVend[j]
       elif lisCnlVend[j] == 3:
         mobAndroidV += lisQntVend[j]
-      else: # só resta o código 4, do iPhone
+      else: # resta apenas o código 4, do iPhone
         mobIphoneV += lisQntVend[j]
     
     if cod == item:
@@ -86,7 +86,7 @@ for cod in lisCodProd:
           totDiv.append(str(j+1) + " - Venda cancelada")
       elif lisSitVend[j] == 190:
         totDiv.append(str(j+1) + " - Venda não finalizada")
-      else:
+      else: # resta apenas o código 999
         totDiv.append(str(j+1) + " - Erro desconhecido. Acionar equipe de TI")
     j += 1
   todosProd.append(linhaCod)
@@ -120,16 +120,16 @@ for prod in todosProd:
   arqTRF.write(formatacao().format(prod[0], prod[1], prod[2], prod[3], prod[4], prod[5], prod[6]))
 arqTRF.close()
 
-def printar(texto, qntd):
+def writeTOT(texto, qntd):
   return arqTOTCN.write("{:<21}{:>10}\n".format(texto, qntd))
 
 arqTOTCN = open("TOTCANAIS.TXT", "w")
 arqTOTCN.write("Quantidades de Vendas por canal\n\n")
-printar("Canal", "QtVendas")
-printar("1 - Representantes", round(representantesV/len(lisCodProd))) # o processo feito para somar os totais é realizado N vezes de acordo com os N codigos de produtos existentes, portanto, dividir esse total pela quantidade de N produtos resulta na venda total
-printar("2 - Website", round(websiteV/len(lisCodProd)))
-printar("3 - App móvel Android", round(mobAndroidV/len(lisCodProd)))
-printar("4 - App móvel iPhone", round(mobIphoneV/len(lisCodProd)))
+writeTOT("Canal", "QtVendas")
+writeTOT("1 - Representantes", round(representantesV/len(lisCodProd))) # o processo feito para somar os totais é realizado N vezes de acordo com os N codigos de produtos existentes, portanto, dividir esse total pela quantidade de N produtos resulta na venda total
+writeTOT("2 - Website", round(websiteV/len(lisCodProd)))
+writeTOT("3 - App móvel Android", round(mobAndroidV/len(lisCodProd)))
+writeTOT("4 - App móvel iPhone", round(mobIphoneV/len(lisCodProd)))
 arqTOTCN.close()
 
 # index dos cods invalidos para pegar seu valor e sua linha
